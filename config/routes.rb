@@ -1,4 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :sprints
+
+  map.resources :users
+
+  map.resources :tasks
+
+  map.resources :stories
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

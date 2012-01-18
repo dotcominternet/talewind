@@ -1,0 +1,33 @@
+<p>
+  <b>Description:</b>
+  <%=h @story.description %>
+</p>
+
+<p>
+  <b>Businesss value:</b>
+  <%=h @story.businesss_value %>
+</p>
+
+<p>
+  <b>Technical value:</b>
+  <%=h @story.technical_value %>
+</p>
+
+<p>
+  <b>Sprint:</b>
+  <%=h @story.sprint_id %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%=h @story.type %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%=h @story.status %>
+</p>
+
+
+<%= link_to 'Edit', edit_story_path(@story) %> |
+<%= link_to 'Back', stories_path %>

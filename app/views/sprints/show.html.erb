@@ -1,0 +1,28 @@
+<p>
+  <b>Name:</b>
+  <%=h @sprint.name %>
+</p>
+
+<p>
+  <b>Goal:</b>
+  <%=h @sprint.goal %>
+</p>
+
+<p>
+  <b>Start:</b>
+  <%=h @sprint.start %>
+</p>
+
+<p>
+  <b>End:</b>
+  <%=h @sprint.end %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%=h @sprint.status %>
+</p>
+
+
+<%= link_to 'Edit', edit_sprint_path(@sprint) %> |
+<%= link_to 'Back', sprints_path %>

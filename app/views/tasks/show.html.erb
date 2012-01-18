@@ -1,0 +1,38 @@
+<p>
+  <b>Story:</b>
+  <%=h @task.story_id %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @task.description %>
+</p>
+
+<p>
+  <b>Is story:</b>
+  <%=h @task.is_story %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @task.user_id %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%=h @task.status %>
+</p>
+
+<p>
+  <b>Estimate:</b>
+  <%=h @task.estimate %>
+</p>
+
+<p>
+  <b>Actual:</b>
+  <%=h @task.actual %>
+</p>
+
+
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Back', tasks_path %>

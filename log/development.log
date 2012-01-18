@@ -1,1 +1,53 @@
 
+  [4;36;1mSQL (0.1ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (0.8ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (17.0ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateStories (20120118112252)
+  [4;36;1mSQL (0.3ms)[0m   [0;1mCREATE TABLE "stories" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "description" text, "businesss_value" integer, "technical_value" integer, "sprint_id" integer, "category" varchar(255), "status" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20120118112252')[0m
+Migrating to CreateTasks (20120118112706)
+  [4;36;1mSQL (0.3ms)[0m   [0;1mCREATE TABLE "tasks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "story_id" integer, "description" text, "is_story" boolean, "user_id" integer, "status" varchar(255), "estimate" integer, "actual" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20120118112706')[0m
+Migrating to CreateUsers (20120118112722)
+  [4;36;1mSQL (0.3ms)[0m   [0;1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20120118112722')[0m
+Migrating to CreateSprints (20120118112936)
+  [4;36;1mSQL (0.2ms)[0m   [0;1mCREATE TABLE "sprints" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "goal" varchar(255), "start" date, "end" date, "status" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20120118112936')[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("sprints")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("stories")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("tasks")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("users")[0m
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2012-01-18 21:33:02) [GET]
+
+ActionController::RoutingError (No route matches "/story" with {:method=>:get}):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing StoriesController#index (for 127.0.0.1 at 2012-01-18 21:33:04) [GET]
+  [4;36;1mStory Load (0.3ms)[0m   [0;1mSELECT * FROM "stories" [0m
+Rendering template within layouts/stories
+Rendering stories/index
+Completed in 54ms (View: 52, DB: 0) | 200 OK [http://localhost/stories]

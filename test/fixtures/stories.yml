@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  description: MyText
+  businesss_value: 1
+  technical_value: 1
+  sprint_id: 1
+  type: MyString
+  status: MyString
+
+two:
+  description: MyText
+  businesss_value: 1
+  technical_value: 1
+  sprint_id: 1
+  type: MyString
+  status: MyString
