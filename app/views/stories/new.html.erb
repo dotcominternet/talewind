@@ -17,16 +17,21 @@
   </p>
   <p>
     <%= f.label :sprint_id %><br />
-    <%= f.text_field :sprint_id %>
+	<%= select_tag "story[sprint_id]", options_for_select(Sprint.all.collect{|x| [x.name, x.id]}) %>
   </p>
   <p>
     <%= f.label :category %><br />
-    <%= f.text_field :category %>
+	<%= select_tag "story[category]", options_for_select(["feature", "bug"], "feature")%>
   </p>
   <p>
     <%= f.label :status %><br />
-    <%= f.text_field :status %>
+    <%= select_tag "story[status]", options_for_select(["concept bin", "not started", "in progress", "complete"], "concept bin") %>
   </p>
+
+  <p>
+	<%= f.label :estimate %><br />
+	<%= text_field_tag :estimate, '', :size => 4 %> minutes
+  </p>	
   <p>
     <%= f.submit 'Create' %>
   </p>

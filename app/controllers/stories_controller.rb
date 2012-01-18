@@ -41,6 +41,12 @@ class StoriesController < ApplicationController
   # POST /stories.xml
   def create
     @story = Story.new(params[:story])
+    
+
+    
+    if params[:estimate].length > 0
+      Task.create_from_story(@story, params[:estimate])
+    end
 
     respond_to do |format|
       if @story.save
