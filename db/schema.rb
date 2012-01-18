@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(:version => 20120118112936) do
 
   create_table "stories", :force => true do |t|
     t.text     "description"
-    t.integer  "businesss_value"
+    t.integer  "business_value"
     t.integer  "technical_value"
     t.integer  "sprint_id"
     t.string   "category"

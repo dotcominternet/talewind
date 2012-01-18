@@ -3,20 +3,20 @@
 <table>
   <tr>
     <th>Description</th>
-    <th>Businesss value</th>
+    <th>Business value</th>
     <th>Technical value</th>
     <th>Sprint</th>
-    <th>Type</th>
+    <th>Category</th>
     <th>Status</th>
   </tr>
 
 <% @stories.each do |story| %>
   <tr>
     <td><%=h story.description %></td>
-    <td><%=h story.businesss_value %></td>
+    <td><%=h story.business_value %></td>
     <td><%=h story.technical_value %></td>
     <td><%=h story.sprint_id %></td>
-    <td><%=h story.type %></td>
+    <td><%=h story.category %></td>
     <td><%=h story.status %></td>
     <td><%= link_to 'Show', story %></td>
     <td><%= link_to 'Edit', edit_story_path(story) %></td>

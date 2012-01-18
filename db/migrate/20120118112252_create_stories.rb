@@ -2,7 +2,7 @@ class CreateStories < ActiveRecord::Migration
   def self.up
     create_table :stories do |t|
       t.text :description
-      t.integer :businesss_value
+      t.integer :business_value
       t.integer :technical_value
       t.integer :sprint_id
       t.string :category
