@@ -60,10 +60,12 @@ Prawn::Document.new :page_size => [326, 153], :margin => [0,30,10] do
 	render_file "test.pdf"
 end
 
-#printer = "DYMO_LabelWriter_400_Turbo"
-#Cups.options_for(printer).each do |k,v|
-#	print "#{k} : #{v}\n"
-#end
-#page = Cups::PrintJob.new "test.pdf", printer
-#page.print
+printer = "DYMO_LabelWriter_400_Turbo"
+page = Cups::PrintJob.new "test.pdf", printer
+page.job_options["PageSize"] = "w153h326"
+page.job_options["scaling"] = "100"
+page.job_options["landscape"] = "yes"
+page.job_options["DymoHalftoning"] = "ErrorDiffusion"
+page.job_options["DymoPrintQuality"] = "Graphics"
+page.print
 
