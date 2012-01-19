@@ -18,13 +18,13 @@
     <td><%=h story.sprint_id %></td>
     <td><%=h story.category %></td>
     <td><%=h story.status %></td>
-    <td><%= link_to 'Show', story %></td>
-    <td><%= link_to 'Edit', edit_story_path(story) %></td>
-    <td><%= link_to 'Destroy', story, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td class="action">
+    <%= link_to 'Edit', edit_story_path(story), :class => 'btn primary' %>
+    <%= link_to 'Del', story, :class => 'btn danger', :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New story', new_story_path %>
+<%= link_to 'New story', new_story_path, :class => 'btn success' %>

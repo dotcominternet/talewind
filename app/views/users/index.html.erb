@@ -8,13 +8,13 @@
 <% @users.each do |user| %>
   <tr>
     <td><%=h user.name %></td>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td class="action">
+    <%= link_to 'Edit', edit_user_path(user), :class => 'btn primary' %>
+    <%= link_to 'Del', user, :class => 'btn danger', :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New user', new_user_path %>
+<%= link_to 'New user', new_user_path, :class => 'btn success' %>
