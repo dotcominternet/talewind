@@ -1,28 +1,14 @@
-<p>
-  <b>Name:</b>
-  <%=h @sprint.name %>
-</p>
+<form>
+  <fieldset>
+    <legend>Sprint #<%= @sprint.id %></legend>
 
-<p>
-  <b>Goal:</b>
-  <%=h @sprint.goal %>
-</p>
+	<%= display_field :name => 'Name', :value => @sprint.name %>
+	<%= display_field :name => 'Goal', :value => @sprint.goal %>
+	<%= display_field :name => 'Start', :value => @sprint.start %>
+	<%= display_field :name => 'End', :value => @sprint.end %>
+	<%= display_field :name => 'Status', :value => @sprint.status %>
+  </fieldset>
+</form>
 
-<p>
-  <b>Start:</b>
-  <%=h @sprint.start %>
-</p>
-
-<p>
-  <b>End:</b>
-  <%=h @sprint.end %>
-</p>
-
-<p>
-  <b>Status:</b>
-  <%=h @sprint.status %>
-</p>
-
-
-<%= link_to 'Edit', edit_sprint_path(@sprint) %> |
-<%= link_to 'Back', sprints_path %>
+<%= link_to 'Edit', edit_sprint_path(@sprint), :class => 'btn primary' %>
+<%= link_to 'Back', :back, :class => 'btn success' %>

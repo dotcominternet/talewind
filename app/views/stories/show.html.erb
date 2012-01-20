@@ -1,33 +1,15 @@
-<p>
-  <b>Description:</b>
-  <%=h @story.description %>
-</p>
+<form>
+  <fieldset>
+    <legend>Story #<%= @story.id %></legend>
 
-<p>
-  <b>Businesss value:</b>
-  <%=h @story.business_value %>
-</p>
+	<%= display_field :name => 'Description', :value => @story.description, :type => :textarea %>
+	<%= display_field :name => 'Business Value', :value => @story.business_value %>
+	<%= display_field :name => 'Technical Value', :value => @story.technical_value %>
+	<%= display_field :name => 'Sprint', :value => (@story.sprint_id.blank? ? "" : "##{@story.sprint_id}: #{@story.sprint.goal}") %>
+	<%= display_field :name => 'Category', :value => @story.category %>
+	<%= display_field :name => 'Status', :value => @story.status %>
+  </fieldset>
+</form>
 
-<p>
-  <b>Technical value:</b>
-  <%=h @story.technical_value %>
-</p>
-
-<p>
-  <b>Sprint:</b>
-  <%=h @story.sprint_id %>
-</p>
-
-<p>
-  <b>Category</b>
-  <%=h @story.category %>
-</p>
-
-<p>
-  <b>Status:</b>
-  <%=h @story.status %>
-</p>
-
-
-<%= link_to 'Edit', edit_story_path(@story) %> |
-<%= link_to 'Back', stories_path %>
+<%= link_to 'Edit', edit_story_path(@story), :class => 'btn primary' %>
+<%= link_to 'Back', :back, :class => 'btn success' %>

@@ -62,7 +62,7 @@ end
 
 printer = "DYMO_LabelWriter_400_Turbo"
 page = Cups::PrintJob.new "test.pdf", printer
-page.job_options["PageSize"] = "w153h326"
+page.job_options["PageSize"] = "w167h288"
 page.job_options["scaling"] = "100"
 page.job_options["landscape"] = "yes"
 page.job_options["DymoHalftoning"] = "ErrorDiffusion"
