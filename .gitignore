@@ -1,0 +1,4 @@
+Rakefile
+config/environment.rb
+db/development.sqlite3
+log/*
