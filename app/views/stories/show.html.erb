@@ -1,15 +1,27 @@
-<form>
-  <fieldset>
-    <legend>Story #<%= @story.id %></legend>
+<%
+bv = @story.business_value
+tv = @story.technical_value
 
-	<%= display_field :name => 'Description', :value => @story.description, :type => :textarea %>
-	<%= display_field :name => 'Business Value', :value => @story.business_value %>
-	<%= display_field :name => 'Technical Value', :value => @story.technical_value %>
-	<%= display_field :name => 'Sprint', :value => (@story.sprint_id.blank? ? "" : "##{@story.sprint_id}: #{@story.sprint.goal}") %>
-	<%= display_field :name => 'Category', :value => @story.category %>
-	<%= display_field :name => 'Status', :value => @story.status %>
-  </fieldset>
-</form>
+bv = 0 if bv.blank?
+tv = 0 if tv.blank?
+
+ov = bv + tv
+
+bv = '?' if bv == 0
+tv = '?' if tv == 0
+ov = '?' if ov == 0
+%>
+
+<section class="story">
+<h3><%= @story.category.blank? ? "STORY" : @story.category.upcase %> #<%= @story.id %> (<%= @story.status.titleize %>)</h3>
+<small><%= @story.sprint_id.blank? ? "" : "Sprint ##{@story.sprint_id}: #{h @story.sprint.goal}<br/>" %></small>
+
+<div class="description">
+	<%=h @story.description %>
+</div>
+
+BV: <b><%= bv %></b> TV: <b><%= tv %></b> [<b><%= ov %></b>]<br/><br/>
 
 <%= link_to 'Edit', edit_story_path(@story), :class => 'btn primary' %>
 <%= link_to 'Back', :back, :class => 'btn success' %>
+</section>

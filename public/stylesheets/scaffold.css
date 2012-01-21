@@ -12,9 +12,9 @@ pre {
   font-size: 11px;
 }
 
-a { color: #000; }
+/*a { color: #000; }
 a:visited { color: #666; }
-a:hover { color: #fff; background-color:#000; }
+a:hover { color: #fff; background-color:#000; }*/
 
 .fieldWithErrors {
   padding: 2px;
@@ -52,3 +52,28 @@ a:hover { color: #fff; background-color:#000; }
   list-style: square;
 }
 
+div.input.date > select:nth-child(1) { width: 60px; }
+div.input.date > select:nth-child(2) { width: 102px; }
+div.input.date > select:nth-child(3) { width: 50px; }
+
+.has-hint { border-bottom: 1px dotted #333; }
+
+section.story {
+	background: #FFFF99;
+	border: 1px solid #E6E68A;
+	padding:  20px;
+	font-size: 18px;
+	width: 500px;
+	min-height: 300px;
+}
+
+section.story h3 {
+	font-size: 25px;
+}
+section.story small {
+	font-size: 16px;
+	font-weight: bold;
+}
+section.story .description {
+	padding: 15px;
+}

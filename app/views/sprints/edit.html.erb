@@ -1,32 +1,43 @@
-<h1>Editing sprint</h1>
-
 <% form_for(@sprint) do |f| %>
   <%= f.error_messages %>
 
+<fieldset>
+	<legend>Edit sprint #<%= @sprint.id %></legend>
   <p>
-    <%= f.label :name %><br />
+    <%= f.label :name %>
+	<div class="input">
     <%= f.text_field :name %>
+	</div>
   </p>
   <p>
-    <%= f.label :goal %><br />
+    <%= f.label :goal %>
+	<div class="input">
     <%= f.text_field :goal %>
+	</div>
   </p>
   <p>
-    <%= f.label :start %><br />
+    <%= f.label :start %>
+	<div class="input date">
     <%= f.date_select :start %>
+	</div>
   </p>
   <p>
-    <%= f.label :end %><br />
+    <%= f.label :end %>
+	<div class="input date">
     <%= f.date_select :end %>
+	</div>
   </p>
   <p>
-    <%= f.label :status %><br />
-    <%= f.text_field :status %>
+    <%= f.label :status %>
+	<div class="input">
+	<%= select_tag "sprint[status]", options_for_select(["not started", "finished", "abandoned"], @sprint.status) %>
+	</div>
   </p>
   <p>
-    <%= f.submit 'Update' %>
+    <%= f.submit 'Update', :class => "btn primary" %>
   </p>
+  </fieldset>
 <% end %>
 
-<%= link_to 'Show', @sprint %> |
-<%= link_to 'Back', sprints_path %>
+<%= link_to 'Show', @sprint, :class => "btn info" %>
+<%= link_to 'Back', sprints_path, :class => "btn success" %>

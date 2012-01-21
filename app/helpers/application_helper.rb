@@ -15,6 +15,8 @@ module ApplicationHelper
 			value = "<span class=\"uneditable-input\">#{h value}</span>"
 		when :textarea
 			value = "<textarea class=\"xxlarge\"#{field} rows=\"3\">#{h value}</textarea>"
+		when :text
+			value = "<input class=\"xlarge\" #{field} size=\"30\" type=\"text\" value=\"#{h value}\"/>"
 		else
 			value = h value
 	end
