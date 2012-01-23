@@ -7,7 +7,7 @@ tv = 0 if tv.blank?
 
 ov = bv + tv
 
-bv = '?' if bv == 0
+bv = '?' if bv == 03
 tv = '?' if tv == 0
 ov = '?' if ov == 0
 %>
@@ -25,3 +25,20 @@ BV: <b><%= bv %></b> TV: <b><%= tv %></b> [<b><%= ov %></b>]<br/><br/>
 <%= link_to 'Edit', edit_story_path(@story), :class => 'btn primary' %>
 <%= link_to 'Back', :back, :class => 'btn success' %>
 </section>
+
+<% @story.tasks.each do |task| %>
+
+<section class="task">
+<h3>TASK <%= task.id %> (<%= task.status.titleize %>)</h3>
+<small><%= task.user_id.blank? ? "Unassigned" : "Assigned to #{task.user.name}" %><br/></small>
+<div class="description">
+	<%=h task.description %>
+</div>
+<small>
+	Estimate <%= task.estimate.blank? ? "?" : task.estimate %> min,
+	Actual <%= task.actual.blank? ? "?" : task.actual %> min.
+</small><br/><br/>
+<%= link_to 'Edit', edit_task_path(task), :class => 'btn primary' %>
+</section>
+
+<% end %>
