@@ -23,4 +23,24 @@ module ApplicationHelper
 
     "<div class=\"clearfix\"><label>#{opts[:name]}</label><div class=\"input\">#{value}</div></div>"
   end
+
+	def in_hours(minutes)
+		if minutes < 1 then
+			"none"
+		else
+			hours = (minutes / 60).floor
+			minutes = minutes - (hours * 60)
+
+			if hours > 0 then
+				"#{minutes}m"
+				if minutes > 0 then
+					"#{hours}h #{minutes}m"
+				else
+					"#{hours}h"
+				end
+			else
+				"#{minutes}m"
+			end
+		end
+	end
 end

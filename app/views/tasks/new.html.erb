@@ -1,39 +1,59 @@
-<h1>New task</h1>
-
+<script>
+	function setDescribe() {
+		$('describe').setStyle({display: $('task_is_story').checked ? "none" : ""})
+	}
+	document.observe("dom:loaded", function() {
+		setDescribe();
+	});
+</script>
 <% form_for(@task) do |f| %>
   <%= f.error_messages %>
-
+<fieldset>
+	<legend>New task for story #<%= @story.id %></legend>
   <p>
-    <%= f.label :story_id %><br />
-    <%= f.text_field :story_id %>
+    <%= f.label :story_id %>
+	<div class="input">
+		<textarea class="xlarge" rows="5" readonly="1"><%=h @story.description %></textarea>
+	</div>
+    <%= f.hidden_field :story_id, :value => @story.id %>
   </p>
   <p>
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
+    <%= f.label :is_story %>
+	<div class="input">
+    <%= f.check_box :is_story, :onchange => 'setDescribe()' %>
+	Is only task in this story.
+	</div>
+  </p>
+  <div id="describe">
+	<p>
+	  <%= f.label :description %>
+	  <div class="input">
+	  <%= f.text_area :description, :class => "xlarge", :rows => 5 %>
+	  </div>
+	</p>
+  </div>
+	<p>
+	  <%= f.label :user_id %>
+	  <div class="input">
+	  <%= select_tag "task[user_id]", options_for_select(User.all.collect{|x| [x.name, x.id]}, @task.user_id) %>
+	  </div>
+	</p>
+	  <p>
+		<%= f.label :status %>
+		<div class="input">
+		<%= select_tag "task[status]", options_for_select(["open", "progress"], @task.status) %>
+		</div>
+	  </p>
+  <p>
+    <%= f.label :estimate %>
+	<div class="input">
+    <%= f.text_field :estimate %> minutes.
+	</div>
   </p>
   <p>
-    <%= f.label :is_story %><br />
-    <%= f.check_box :is_story %>
+    <%= f.submit 'Create', :class => "btn primary"  %>
   </p>
-  <p>
-    <%= f.label :user_id %><br />
-    <%= f.text_field :user_id %>
-  </p>
-  <p>
-    <%= f.label :status %><br />
-    <%= f.text_field :status %>
-  </p>
-  <p>
-    <%= f.label :estimate %><br />
-    <%= f.text_field :estimate %>
-  </p>
-  <p>
-    <%= f.label :actual %><br />
-    <%= f.text_field :actual %>
-  </p>
-  <p>
-    <%= f.submit 'Create' %>
-  </p>
+</fieldset>
 <% end %>
 
-<%= link_to 'Back', tasks_path %>
+<%= link_to 'Back', :back, :class => 'btn success' %>

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120118112936) do
+ActiveRecord::Schema.define(:version => 20120124082138) do
 
   create_table "sprints", :force => true do |t|
     t.string   "name"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(:version => 20120118112936) do
     t.integer  "actual"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "completed"
   end
 
   create_table "users", :force => true do |t|

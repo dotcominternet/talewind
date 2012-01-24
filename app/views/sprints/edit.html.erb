@@ -12,7 +12,7 @@
   <p>
     <%= f.label :goal %>
 	<div class="input">
-    <%= f.text_field :goal %>
+		<%= f.text_area :goal, :class => "xlarge", :rows => 5 %>
 	</div>
   </p>
   <p>
@@ -30,7 +30,7 @@
   <p>
     <%= f.label :status %>
 	<div class="input">
-	<%= select_tag "sprint[status]", options_for_select(["not started", "finished", "abandoned"], @sprint.status) %>
+	<%= select_tag "sprint[status]", options_for_select(["not started", "started", "finished", "abandoned"], @sprint.status) %>
 	</div>
   </p>
   <p>
@@ -40,4 +40,4 @@
 <% end %>
 
 <%= link_to 'Show', @sprint, :class => "btn info" %>
-<%= link_to 'Back', sprints_path, :class => "btn success" %>
+<%= link_to 'Back', :back, :class => 'btn success' %>

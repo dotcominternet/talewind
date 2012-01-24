@@ -1,36 +1,49 @@
-<h1>Editing story</h1>
-
 <% form_for(@story) do |f| %>
   <%= f.error_messages %>
 
+<fieldset>
+	<legend>Edit story #<%= @story.id %></legend>
   <p>
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
+    <%= f.label :description %>
+	<div class="input">
+    <%= f.text_area :description, :class => "xlarge", :rows => 5 %>
+	</div>
   </p>
   <p>
-    <%= f.label :business_value %><br />
+    <%= f.label :business_value %>
+	<div class="input">
     <%= f.text_field :business_value %>
+	</div>
   </p>
   <p>
-    <%= f.label :technical_value %><br />
+    <%= f.label :technical_value %>
+	<div class="input">
     <%= f.text_field :technical_value %>
+	</div>
   </p>
   <p>
-    <%= f.label :sprint_id %><br />
-	<%= select_tag "story[sprint_id]", options_for_select(Sprint.all.collect{|x| [x.name, x.id]}) %>
+    <%= f.label :sprint_id %>
+	<div class="input">
+	<%= select_tag "story[sprint_id]", options_for_select(Sprint.all.collect{|x| [x.name, x.id]}, @story.sprint_id) %>
+	</div>
   </p>
   <p>
-    <%= f.label :category %><br />
-	<%= select_tag "story[category]", options_for_select(["feature", "bug"], @story.category)%>
+    <%= f.label :category %>
+	<div class="input">
+	<%= select_tag "story[category]", options_for_select(["feature", "bug", "action"], @story.category)%>
+	</div>
   </p>
   <p>
-    <%= f.label :status %><br />
+    <%= f.label :status %>
+	<div class="input">
     <%= select_tag "story[status]", options_for_select(["concept bin", "not started", "in progress", "complete"], @story.status) %>
+	</div>
   </p>
   <p>
-    <%= f.submit 'Update' %>
+    <%= f.submit 'Update', :class => "btn primary"  %>
   </p>
+</fieldset>
 <% end %>
 
-<%= link_to 'Show', @story %> |
-<%= link_to 'Back', stories_path %>
+<%= link_to 'Show', @story, :class => "btn info" %>
+<%= link_to 'Back', :back, :class => 'btn success' %>

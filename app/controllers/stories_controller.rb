@@ -41,15 +41,14 @@ class StoriesController < ApplicationController
   # POST /stories.xml
   def create
     @story = Story.new(params[:story])
-    
+	saved = @story.save
 
-    
     if params[:estimate].length > 0
       Task.create_from_story(@story, params[:estimate])
     end
 
     respond_to do |format|
-      if @story.save
+      if saved
         flash[:notice] = 'Story was successfully created.'
         format.html { redirect_to(@story) }
         format.xml  { render :xml => @story, :status => :created, :location => @story }
@@ -87,5 +86,16 @@ class StoriesController < ApplicationController
       format.html { redirect_to(stories_url) }
       format.xml  { head :ok }
     end
+  end
+
+  # GET /stories/1/print
+  def print
+	  respond_to do |format|
+		  require "docket"
+		  print_story params[:id]
+		  flash[:notice] = "Story was printed."
+		  format.html { redirect_to(stories_url) }
+		  format.xml { head :ok }
+	  end
   end
 end

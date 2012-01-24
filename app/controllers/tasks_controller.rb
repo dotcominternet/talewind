@@ -25,6 +25,7 @@ class TasksController < ApplicationController
   # GET /tasks/new.xml
   def new
     @task = Task.new
+	@story = Story.find params[:story_id]
 
     respond_to do |format|
       format.html # new.html.erb

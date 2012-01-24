@@ -1,38 +1,14 @@
-<p>
-  <b>Story:</b>
-  <%=h @task.story_id %>
-</p>
+<section class="task">
+<h3>TASK #<%= @task.id %> (<%= @task.status.titleize %>)</h3>
+<small><%= @task.user_id.blank? ? "Unassigned" : "Assigned to #{@task.user.name}" %><br/></small>
+<div class="description">
+	<%=h @task.is_story? ? "Do required task(s) to close the user story." : @task.description %>
+</div>
+	Estimate <b><%= @task.estimate.blank? ? "?" : in_hours(@task.estimate) %></b>,
+	Actual <b><%= @task.actual.blank? ? "?" : in_hours(@task.actual) %></b>
+</section>
 
-<p>
-  <b>Description:</b>
-  <%=h @task.description %>
-</p>
-
-<p>
-  <b>Is story:</b>
-  <%=h @task.is_story %>
-</p>
-
-<p>
-  <b>User:</b>
-  <%=h @task.user_id %>
-</p>
-
-<p>
-  <b>Status:</b>
-  <%=h @task.status %>
-</p>
-
-<p>
-  <b>Estimate:</b>
-  <%=h @task.estimate %>
-</p>
-
-<p>
-  <b>Actual:</b>
-  <%=h @task.actual %>
-</p>
-
-
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+<%= link_to 'Story', story_path(@task.story), :class => 'btn info' %>
+<%= link_to 'Another task', new_task_path+'?story_id='+@task.story_id.to_s, :class => 'btn success' %>
+<%= link_to 'Edit', edit_task_path(@task), :class => 'btn primary' %>
+<%= link_to 'Back', :back, :class => 'btn success' %>
