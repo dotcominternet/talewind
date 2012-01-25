@@ -1,8 +1,8 @@
 <script>
 	function setDescribe() {
-		$('describe').setStyle({display: $('task_is_story').checked ? "none" : ""})
+		$('#describe').css({display: $('#task_is_story').is(":checked") ? "none" : ""})
 	}
-	document.observe("dom:loaded", function() {
+	$(function() {
 		setDescribe();
 	});
 </script>
@@ -38,7 +38,7 @@
   <p>
     <%= f.label :user_id %>
 	<div class="input">
-	<%= select_tag "task[user_id]", options_for_select(User.all.collect{|x| [x.name, x.id]}, @task.user_id) %>
+	<%= select "task", "user_id", User.all.collect{|x| [x.name, x.id]}, { :include_blank => "nobody" } %>
 	</div>
   </p>
 	<p>

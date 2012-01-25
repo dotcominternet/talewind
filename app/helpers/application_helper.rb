@@ -1,5 +1,11 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+	@@md = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(:no_images => true, :safe_links_only => true, :hard_wrap => true))
+
+	def markdown(text)
+		@@md.render text
+	end
+	
   def display_field(opts)
     opts = {:type => :uneditable, :value => '', :name => '', :field => false}.merge!(opts)
 

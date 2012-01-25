@@ -7,7 +7,7 @@ tv = 0 if tv.blank?
 
 ov = bv + tv
 
-bv = '?' if bv == 03
+bv = '?' if bv == 0
 tv = '?' if tv == 0
 ov = '?' if ov == 0
 
@@ -29,8 +29,9 @@ remain = 0
 end
 
 %>
+<%= link_to 'New story', new_story_path, :class => 'btn success', :style => 'float: right' %>
 
-<section class="story">
+<section class="story category-<%= @story.category.parameterize %> status-<%= @story.status.parameterize %>">
 <h3><%= @story.category.blank? ? "STORY" : @story.category.upcase %> #<%= @story.id %> (<%= @story.status.titleize %>)</h3>
 <small><%= @story.sprint_id.blank? ? "" : "Sprint ##{@story.sprint_id}: #{h @story.sprint.goal}<br/>" %></small>
 
@@ -49,11 +50,11 @@ Estimate: <b><%=in_hours estimate %></b>, Actual: <b><%=in_hours actual %></b><%
 
 <% @story.tasks.each do |task| %>
 
-<section class="task in-story">
+<section class="task in-story status-<%= task.status.parameterize %>">
 <h3>TASK #<%= task.id %> (<%= task.status.titleize %>)</h3>
 <small><%= task.user_id.blank? ? "Unassigned" : "Assigned to #{task.user.name}" %><br/></small>
 <div class="description">
-	<%=h task.is_story? ? "Do required task(s) to close the user story." : task.description %>
+	<%= markdown task.is_story? ? "Do required task(s) to close the user story." : task.description %>
 </div>
 	Estimate <b><%= task.estimate.blank? ? "?" : in_hours(task.estimate) %></b>,
 	Actual <b><%= task.actual.blank? ? "?" : in_hours(task.actual) %></b>

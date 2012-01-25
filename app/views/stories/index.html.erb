@@ -1,14 +1,14 @@
-<h1>Listing stories</h1>
+<%= link_to 'New story', new_story_path, :class => 'btn success', :style => 'float: right' %>
 
-<table>
+<table class="no-border">
 <thead>
   <tr>
     <th colspan="5">Description</th>
     <th rowspan="2">Actions</th>
   </tr>
   <tr>
-    <th title="Business value"><span class="has-hint">BV</span></th>
-    <th title="Technical value"><span class="has-hint">TV</span></th>
+    <th><span title="Business value" class="has-hint">BV</span></th>
+    <th><span title="Technical value" class="has-hint">TV</span></th>
     <th>Sprint</th>
     <th>Category</th>
     <th>Status</th>
@@ -17,7 +17,7 @@
 <tbody>
 <% @stories.each do |story| %>
   <tr>
-    <td colspan="5" class="notepad"><%= link_to story.description, story_path(story) %></td>
+    <td colspan="5" class="notepad category-<%= story.category.parameterize %> status-<%= story.status.parameterize %>"><%= link_to "##{story.id}", story_path(story) %>: <%= story.description %></td>
 	<td rowspan="2" class="action" nowrap="1">
 	  <%= link_to 'Edit', edit_story_path(story), :class => 'btn primary' %>
 	  <%= link_to 'Del', story, :class => 'btn danger', :confirm => 'Are you sure?', :method => :delete %><br/>
@@ -25,7 +25,7 @@
 	  <%= link_to 'Print', "/stories/print/#{story.id}", :class => 'btn info' %>
 	</td>
   </tr>
-  <tr class="second-line">
+  <tr>
     <td><%=h story.business_value %></td>
     <td><%=h story.technical_value %></td>
     <td><%=h story.sprint_id %></td>
