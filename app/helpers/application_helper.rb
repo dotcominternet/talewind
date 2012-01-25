@@ -1,5 +1,9 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  def set_focus(e)
+    javascript_tag("$('#{e}').focus()");
+  end
+  
   def display_field(opts)
     opts = {:type => :uneditable, :value => '', :name => '', :field => false}.merge!(opts)
 

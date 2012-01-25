@@ -35,7 +35,7 @@
   <p>
     <%= f.label :status %>
 	<div class="input">
-    <%= select_tag "story[status]", options_for_select(["concept bin", "not started", "in progress", "complete"], @story.status) %>
+    <%= select_tag "story[status]", options_for_select(["concept bin", "not started", "in progress", "complete"], "not started") %>
 	</div>
   </p>
 
@@ -51,5 +51,5 @@
   </p>
 	</fieldset>
 <% end %>
-
+<%= set_focus('description') %>
 <%= link_to 'Back', :back, :class => 'btn success' %>
