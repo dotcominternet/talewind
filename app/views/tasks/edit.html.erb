@@ -50,13 +50,13 @@
 	<p>
 	  <%= f.label :estimate %>
 	  <div class="input">
-	  <%= f.text_field :estimate %> minutes.
+	  <%= text_field_tag "task[estimate]", @task.estimate, :type => 'number', :class => 'span2', :min => 0, :step => 15, :max => 360, :autocomplete => 'off' %> minutes
 	  </div>
 	</p>
 	<p>
 	  <%= f.label :actual %>
 	  <div class="input">
-	  <%= f.text_field :actual %> minutes.
+	  <%= text_field_tag "task[actual]", @task.actual, :type => 'number', :class => 'span2', :min => 0, :step => 15, :max => 360, :autocomplete => 'off' %> minutes
 	  </div>
 	</p>
 	<p>

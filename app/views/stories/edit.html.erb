@@ -12,13 +12,13 @@
   <p>
     <%= f.label :business_value %>
 	<div class="input">
-    <%= f.text_field :business_value %>
+		<%= text_field_tag "story[business_value]", @story.business_value, :type => 'number', :class => 'span2', :min => 1, :max => 10, :autocomplete => 'off' %>
 	</div>
   </p>
   <p>
     <%= f.label :technical_value %>
 	<div class="input">
-    <%= f.text_field :technical_value %>
+		<%= text_field_tag "story[technical_value]", @story.technical_value, :type => 'number', :class => 'span2', :min => 1, :max => 10, :autocomplete => 'off' %>
 	</div>
   </p>
   <p>

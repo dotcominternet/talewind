@@ -41,15 +41,27 @@
 	  <p>
 		<%= f.label :status %>
 		<div class="input">
-		<%= select_tag "task[status]", options_for_select(["open", "progress"], @task.status) %>
+		<%= select_tag "task[status]", options_for_select(["open", "progress", "closed"], @task.status) %>
 		</div>
 	  </p>
-  <p>
-    <%= f.label :estimate %>
-	<div class="input">
-    <%= f.text_field :estimate %> minutes.
-	</div>
-  </p>
+	<p>
+	  <%= f.label :estimate %>
+	  <div class="input">
+	  <%= text_field_tag "task[estimate]", @task.estimate, :type => 'number', :class => 'span2', :min => 0, :step => 15, :max => 360, :autocomplete => 'off' %> minutes
+	  </div>
+	</p>
+	<p>
+	  <%= f.label :actual %>
+	  <div class="input">
+	  <%= text_field_tag "task[actual]", @task.actual, :type => 'number', :class => 'span2', :min => 0, :step => 15, :max => 360, :autocomplete => 'off' %> minutes
+	  </div>
+	</p>
+	<p>
+	  <%= f.label :completed %>
+	  <div class="input date">
+	  <%= f.datetime_select :completed %>
+	  </div>
+	</p>
   <p>
     <%= f.submit 'Create', :class => "btn primary"  %>
   </p>

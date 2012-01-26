@@ -4,12 +4,20 @@
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :name %><br />
+    <%= f.label :name %>
+	<div class="input">
     <%= f.text_field :name %>
+	</div>
   </p>
   <p>
-    <%= f.submit 'Update' %>
+    <%= f.label :workday_minutes %>
+	<div class="input">
+    <%= text_field_tag "user[workday_minutes]", @user.workday_minutes, :type => 'number', :class => 'span2', :min => 0, :step => 15, :max => 360, :autocomplete => 'off' %> minutes
+	</div>
   </p>
+	<p>
+	  <%= f.submit 'Update', :class => "btn primary"  %>
+	</p>
 <% end %>
 
 <%= link_to 'Show', @user %> |

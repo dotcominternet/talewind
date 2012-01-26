@@ -3,6 +3,25 @@ class UsersController < ApplicationController
   # GET /users.xml
   def index
     @users = User.all
+	@sprints = Sprint.find_all_by_status "started"
+	@tasks = Task.find_all_by_status "open"
+	@sprint_times = {}
+	@used_time = {}
+	@available_time = {}
+
+	@users.each do |user|
+		@available_time[user.id] = user.workday_minutes if @used_time[user.id].nil?
+	end
+
+	@tasks.each do |task|
+		sprint_id = task.story.sprint_id
+		user_id = task.user_id
+		@used_time[user_id] = 0 if @used_time[user_id].nil?
+		@sprint_times[sprint_id] = {} if @sprint_times[sprint_id].nil?
+		@sprint_times[sprint_id][user_id] = 0 if @sprint_times[sprint_id][user_id].nil?
+		@used_time[user_id] += task.estimate
+		@sprint_times[sprint_id][user_id] += task.estimate
+	end
 
     respond_to do |format|
       format.html # index.html.erb

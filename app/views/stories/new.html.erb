@@ -11,13 +11,13 @@
   <p>
     <%= f.label :business_value %>
 	<div class="input">
-    <%= f.text_field :business_value %>
+		<%= text_field_tag "story[business_value]", 1, :type => 'number', :class => 'span2', :min => 1, :max => 10, :autocomplete => 'off' %>
 	</div>
   </p>
   <p>
     <%= f.label :technical_value %>
 	<div class="input">
-    <%= f.text_field :technical_value %>
+    <%= text_field_tag "story[technical_value]", 9, :type => 'number', :class => 'span2', :min => 1, :max => 10, :autocomplete => 'off' %>
 	</div>
   </p>
   <p>
@@ -42,7 +42,7 @@
   <p>
 	<%= f.label :estimate %>
 	<div class="input">
-	<%= text_field_tag :estimate, '', :size => 4 %> minutes
+	<%= text_field_tag :estimate, '', :type => 'number', :class => 'span2', :min => 0, :step => 15, :max => 360, :autocomplete => 'off' %> minutes
 	</div>
   </p>
 
@@ -51,5 +51,5 @@
   </p>
 	</fieldset>
 <% end %>
-<%= set_focus('description') %>
+<%= set_focus('story_description') %>
 <%= link_to 'Back', :back, :class => 'btn success' %>

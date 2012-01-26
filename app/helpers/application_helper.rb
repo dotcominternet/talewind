@@ -7,7 +7,7 @@ module ApplicationHelper
 	end
 	
   def set_focus(e)
-    javascript_tag("$('#{e}').focus()");
+    javascript_tag("$('##{e}').focus()");
   end
   
   def display_field(opts)
@@ -35,8 +35,9 @@ module ApplicationHelper
   end
 
 	def in_hours(minutes)
+		return "no" if minutes.nil?
 		if minutes < 1 then
-			"none"
+			"0h"
 		else
 			hours = (minutes / 60).floor
 			minutes = minutes - (hours * 60)
@@ -52,5 +53,25 @@ module ApplicationHelper
 				"#{minutes}m"
 			end
 		end
+	end
+
+	def max_length(text, chars)
+		if text.length > chars
+			dest = []
+			len = 0
+			text.split(" ").each do |word|
+				len += word.length
+				if len < chars
+					dest.push word
+				end
+			end
+
+			if dest.length == 0
+				dest.push text.slice(0,chars)
+			end
+			
+			text = dest.join(" ") + "..."
+		end
+		text
 	end
 end
