@@ -54,8 +54,8 @@
 		sprint.stories.each do |story|
 			story.tasks.each do |task|
 				if task.status == 'closed' and task.user_id == user.id
-					estimate += task.estimate
-					actual += task.actual
+					estimate += task.estimate unless task.estimate.nil?
+					actual += task.actual unless task.actual.nil?
 					tname = task.description
 					if task.description.blank?
 						   if task.is_story
