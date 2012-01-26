@@ -6,6 +6,10 @@ module ApplicationHelper
 		@@md.render text
 	end
 	
+  def set_focus(e)
+    javascript_tag("$('#{e}').focus()");
+  end
+  
   def display_field(opts)
     opts = {:type => :uneditable, :value => '', :name => '', :field => false}.merge!(opts)
 
