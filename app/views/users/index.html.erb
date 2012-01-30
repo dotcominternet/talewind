@@ -116,7 +116,7 @@
 			story.tasks.each do |task|
 				if task.status == 'closed'
 					estimate += task.estimate unless task.estimate.nil?
-					actual += task.actual unless task.estimate.nil?
+					actual += task.actual unless task.actual.nil?
 				end
 			end
 		end
