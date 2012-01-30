@@ -2,14 +2,14 @@
 
 <%
 
-@users.each do |user|
-	used = 0
-	avail = 0
-	used = @used_time[user.id] unless @used_time[user.id].nil?
-	avail = user.workday_minutes unless user.workday_minutes.nil?
+   @users.each do |user|
+	   used = 0
+	   avail = 0
+	   used = @used_time[user.id] unless @used_time[user.id].nil?
+	   avail = user.workday_minutes unless user.workday_minutes.nil?
 
 %>
-	<h3><%=h user.name %></h3>
+	<h3><%= h user.name %></h3>
 	<%= in_hours user.workday_minutes %> per workday.
 	<%= in_hours used %> of allocated tasks
 
@@ -20,8 +20,8 @@
 	<% @sprints.each do |sprint| %>
 		<%
 
-		unless @sprint_times[sprint.id].blank? or @sprint_times[sprint.id][user.id].blank?
-		   time = @sprint_times[sprint.id][user.id]
+		   unless @sprint_times[sprint.id].blank? or @sprint_times[sprint.id][user.id].blank?
+			   time = @sprint_times[sprint.id][user.id]
 
 		%>
 			<h4>Sprint <%= "##{sprint.id} (#{sprint.name})" %></h4>
@@ -29,18 +29,18 @@
 			<ul>
 				<% @tasks.each do |t| %>
 					<%
-					if t.story.sprint_id == sprint.id and t.user_id == user.id
-						tname = t.description
-						if t.description.blank?
-					   		if t.is_story
-					   			tname = t.story.description
-							else
-								tname = "Unnamed task"
-					   		end
-					   	end
+					   if t.story.sprint_id == sprint.id and t.user_id == user.id
+						   task_name = t.description
+						   if t.description.blank?
+							   if t.is_story
+								   task_name = t.story.description
+							   else
+								   task_name = "Unnamed task"
+							   end
+						   end
 
 					%>
-						<li><%= link_to max_length(tname, 60), task_path(t.id) %> <%= "(est = #{in_hours t.estimate})" %></li>
+						<li><%= link_to max_length(task_name, 60), task_path(t.id) %> <%= "(#{in_hours t.estimate})" %></li>
 					<% end %>
 				<% end %>
 			</ul>
@@ -48,30 +48,30 @@
 
 		<h4>Completed</h4>
 		<ul>
-		<%
-		estimate = 0
-		actual = 0
-		sprint.stories.each do |story|
-			story.tasks.each do |task|
-				if task.status == 'closed' and task.user_id == user.id
-					estimate += task.estimate unless task.estimate.nil?
-					actual += task.actual unless task.actual.nil?
-					tname = task.description
-					if task.description.blank?
-						   if task.is_story
-							   tname = story.description
-						else
-							tname = "Unnamed task"
+			<%
+			   estimate = 0
+			   actual = 0
+			   sprint.stories.each do |story|
+				   story.tasks.each do |task|
+					   if task.status == 'closed' and task.user_id == user.id
+						   estimate += task.estimate unless task.estimate.nil?
+						   actual += task.actual unless task.actual.nil?
+						   task_name = task.description
+						   if task.description.blank?
+							   if task.is_story
+								   task_name = story.description
+							   else
+								   task_name = "Unnamed task"
+							   end
 						   end
-					   end
 
-				%>
-					<li><%= link_to max_length(tname, 60), task_path(task.id) %> <%= "(est = #{in_hours task.estimate}, act = #{in_hours task.actual})" %></li>
-				<%
-				end
-			end
-		end
-		%>
+			%>
+						<li><%= link_to max_length(task_name, 60), task_path(task.id) %> <%= "(#{in_hours task.estimate} => #{in_hours task.actual} actual)" %></li>
+					<%
+					   end
+					   end
+					   end
+					%>
 		</ul>
 		<%= in_hours estimate %> estimated, with <%= in_hours actual %> actual = &Delta; <%= (estimate - actual)/60 %>h
 	<% end %><br/><br/>
@@ -83,49 +83,55 @@
 <h1>Unassigned tasks</h1>
 <% @sprints.each do |sprint|
 	time = 0
-   total = 0
+	total = 0
+	last_name = nil
 %>
 	<% unless @sprint_times[sprint.id].blank? %>
 		<h3><%= "##{sprint.id} (#{sprint.name})" %></h3>
-		<ul>
+		<ul style="list-style: none">
 			<% @tasks.each do |t| %>
 				<%
 				   total += t.estimate
-				if t.story.sprint_id == sprint.id and t.user_id.blank?
-					tname = t.description
-					if t.description.blank?
-						if t.is_story
-							tname = t.story.description
-						else
-							tname = "Unnamed task"
-						end
-					end
+				   if t.story.sprint_id == sprint.id and t.user_id.blank?
+					   story_name = t.story.description
+					   task_name = t.description
+					   if t.description.blank?
+						   if t.is_story
+							   task_name = "Implement story"
+						   else
+							   task_name = "Unnamed task"
+						   end
+					   end
 
-				   time += t.estimate
+					   story_name = nil if (story_name == last_name)
+					   last_name = t.story.description
+
+					   time += t.estimate
 				%>
-					<li><%= link_to max_length(tname, 60), task_path(t.id) %></li>
+					<%= story_name.blank? ? "" : "<br/><li><b>" + link_to("#{t.story.category.titleize} ##{t.story.id}", story_path(t.story.id)) + ":<br/>#{max_length story_name, 80}</b></li>" %>
+					<li style="padding-left: 10px"><%= link_to max_length(task_name, 80), task_path(t.id) %> <%= "(#{in_hours t.estimate})" %></li>
 				<% end %>
 			<% end %>
 		</ul>
 		Sprint has <%= in_hours time %> of unallocated tasks (<%= in_hours total %> including allocated)
 
 		<%
-		estimate = 0
-		actual = 0
-		sprint.stories.each do |story|
-			story.tasks.each do |task|
-				if task.status == 'closed'
-					estimate += task.estimate unless task.estimate.nil?
-					actual += task.actual unless task.estimate.nil?
-				end
-			end
-		end
+		   estimate = 0
+		   actual = 0
+		   sprint.stories.each do |story|
+			   story.tasks.each do |task|
+				   if task.status == 'closed'
+					   estimate += task.estimate unless task.estimate.nil?
+					   actual += task.actual unless task.estimate.nil?
+				   end
+			   end
+		   end
 		%>
 		<h4>Completed</h4>
 		<%= in_hours estimate %> estimated, with <%= in_hours actual %> actual = &Delta; <%= (estimate - actual)/60 %>h
 	<% end %>
 <% end %>
 
-<br/><br />
+<br/><br/>
 
 <%= link_to 'New user', new_user_path, :class => 'btn success' %>

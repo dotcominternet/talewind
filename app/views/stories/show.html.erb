@@ -1,69 +1,11 @@
-<%
-bv = @story.business_value
-tv = @story.technical_value
+<%= link_to 'New task', new_task_path+'?story_id='+@story.id.to_s, :class => 'btn success', :style => 'float: right; margin-right: 5px;' %>
+<%= link_to 'New Story', new_story_path, :class => 'btn success', :style => 'float: right; margin-right: 5px;' %>
 
-bv = 0 if bv.blank?
-tv = 0 if tv.blank?
+<%= render :partial => 'story', :locals => { :story => @story } %>
 
-ov = bv + tv
+<%= link_to 'Sprint', sprint_path(@story.sprint), :class => 'btn info' unless @story.sprint_id.blank? %>
 
-bv = '?' if bv == 0
-tv = '?' if tv == 0
-ov = '?' if ov == 0
-
-estimate = 0
-actual = 0
-remain = 0
-@story.tasks.each do |task|
-	if !task.estimate.blank? then
-		estimate += task.estimate if !task.estimate.blank?
-		if task.status != 'closed' then
-			if task.actual.blank? then
-				remain += task.estimate
-			elsif task.actual < task.estimate then
-				remain += task.estimate - task.actual
-			end
-		end
-	end
-	actual += task.actual if !task.actual.blank?
-end
-
-%>
-<%= link_to 'New story', new_story_path, :class => 'btn success', :style => 'float: right' %>
-
-<section class="story category-<%= @story.category.parameterize %> status-<%= @story.status.parameterize %>">
-<h3><%= @story.category.blank? ? "STORY" : @story.category.upcase %> #<%= @story.id %> (<%= @story.status.titleize %>)</h3>
-<small><%= @story.sprint_id.blank? ? "" : "Sprint ##{@story.sprint_id}: #{h @story.sprint.goal}<br/>" %></small>
-
-<div class="description">
-	<%=h @story.description %>
-</div>
-
-BV: <b><%= bv %></b> TV: <b><%= tv %></b> [<b><%= ov %></b>]<br/>
-Estimate: <b><%=in_hours estimate %></b>, Actual: <b><%=in_hours actual %></b><%= remain.blank? ? "" : ", Remain: <b>#{in_hours remain}</b>" %>
-<br/><br/>
-
-<%= link_to 'Print', "/stories/print/#{@story.id}", :class => 'btn info' %>
-<%= link_to 'Edit', edit_story_path(@story), :class => 'btn primary' %>
-<%= link_to 'Back', :back, :class => 'btn success' %>
-</section>
-
-<% @story.tasks.each do |task| %>
-
-<section class="task in-story status-<%= task.status.parameterize %>">
-<h3>TASK #<%= task.id %> (<%= task.status.titleize %>)</h3>
-<small><%= task.user_id.blank? ? "Unassigned" : "Assigned to #{task.user.name}" %><br/></small>
-<div class="description">
-	<%= markdown task.is_story? ? "Do required task(s) to close the user story." : task.description %>
-</div>
-	Estimate <b><%= task.estimate.blank? ? "?" : in_hours(task.estimate) %></b>,
-	Actual <b><%= task.actual.blank? ? "?" : in_hours(task.actual) %></b>
-
-<br/><br/>
-<%= link_to 'Edit', edit_task_path(task), :class => 'btn primary' %>
-</section>
-<% end %>
-
-<%= link_to 'Sprint', sprint_path(@story.sprint), :class => 'btn info' unless @story.sprint_id.blank?  %>
+<%= link_to 'New story', new_story_path, :class => 'btn success' %>
 <%= link_to 'New task', new_task_path+'?story_id='+@story.id.to_s, :class => 'btn success' %>
+
 <%= link_to 'Back', :back, :class => 'btn success' %>

@@ -1,17 +1,17 @@
-<%= link_to 'New story', new_story_path, :class => 'btn success', :style => 'float: right' %>
 <%= link_to 'Another task', new_task_path+'?story_id='+@task.story_id.to_s, :class => 'btn success', :style => 'float: right; margin-right: 5px;' %>
+<%= link_to 'New Story', new_story_path, :class => 'btn success', :style => 'float: right; margin-right: 5px;' %>
 
-<section class="task status-<%= @task.status.parameterize %>">
-<h3>TASK #<%= @task.id %> (<%= @task.status.titleize %>)</h3>
-<small><%= @task.user_id.blank? ? "Unassigned" : "Assigned to #{@task.user.name}" %><br/></small>
-<div class="description">
-<%= markdown @task.is_story? ? "Do required task(s) to close the user story." : @task.description %>
-</div>
-	Estimate <b><%= @task.estimate.blank? ? "?" : in_hours(@task.estimate) %></b>,
-	Actual <b><%= @task.actual.blank? ? "?" : in_hours(@task.actual) %></b>
-</section>
+<%=
 
-<%= link_to 'Story', story_path(@task.story), :class => 'btn info' %>
+if @task.story_id.blank?
+	render :partial => 'task', :locals => { :task => @task }
+else
+	render :partial => 'stories/story', :locals => { :story => @task.story, :focus_task => @task }
+end
+
+%>
+
+<%= link_to 'New story', new_story_path, :class => 'btn success' %>
 <%= link_to 'Another task', new_task_path+'?story_id='+@task.story_id.to_s, :class => 'btn success' %>
 <%= link_to 'Edit', edit_task_path(@task), :class => 'btn primary' %>
 <%= link_to 'Back', :back, :class => 'btn success' %>

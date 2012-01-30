@@ -1,0 +1,59 @@
+<%
+   bv = story.business_value
+   tv = story.technical_value
+
+   bv = 0 if bv.blank?
+   tv = 0 if tv.blank?
+
+   ov = bv + tv
+
+   bv = '?' if bv == 0
+   tv = '?' if tv == 0
+   ov = '?' if ov == 0
+
+   estimate = 0
+   actual = 0
+   remain = 0
+   story.tasks.each do |task|
+	   if !task.estimate.blank? then
+		   estimate += task.estimate if !task.estimate.blank?
+		   if task.status != 'closed' then
+			   if task.actual.blank? then
+				   remain += task.estimate
+			   elsif task.actual < task.estimate then
+				   remain += task.estimate - task.actual
+			   end
+		   end
+	   end
+	   actual += task.actual if !task.actual.blank?
+   end
+
+%>
+
+<section class="story category-<%= story.category.parameterize %> status-<%= story.status.parameterize %>">
+	<h3><%= story.category.blank? ? "STORY" : story.category.upcase %> #<%= story.id %> (<%= story.status.titleize %>)</h3>
+	<small><%= story.sprint_id.blank? ? "" : "Sprint ##{story.sprint_id}: #{h story.sprint.goal}<br/>" %></small>
+
+	<div class="description">
+		<%= h story.description %>
+	</div>
+
+	BV: <b><%= bv %></b> TV: <b><%= tv %></b> [<b><%= ov %></b>]<br/>
+	Estimate: <b><%= in_hours estimate %></b>, Actual:
+	<b><%= in_hours actual %></b><%= remain.blank? ? "" : ", Remain: <b>#{in_hours remain}</b>" %>
+	<br/><br/>
+
+	<%= link_to 'Print', "/stories/print/#{story.id}", :class => 'btn info' %>
+	<%= link_to 'Edit', edit_story_path(story), :class => 'btn primary' %>
+	<%= link_to 'Back', :back, :class => 'btn success' %>
+</section>
+
+<% if defined? focus_task %>
+	<%= render :partial => 'tasks/task', :locals => { :task => focus_task, :focus => true } %>
+<% end %>
+
+<% story.tasks.each do |task| %>
+	<% if defined? focus_test and !focus_task.blank? and focus_task == task %>
+		<%= render :partial => 'tasks/task', :locals => { :task => task } %>
+	<% end %>
+<% end %>

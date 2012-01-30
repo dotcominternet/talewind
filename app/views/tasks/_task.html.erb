@@ -1,0 +1,12 @@
+<section class="task in-story status-<%= task.status.parameterize %>">
+	<h3>TASK #<%= task.id %> (<%= task.status.titleize %>)</h3>
+	<small><%= task.user_id.blank? ? "Unassigned" : "Assigned to #{task.user.name}" %><br/></small>
+	<div class="description">
+		<%= markdown task.is_story? ? "Do required task(s) to close the user story." : task.description %>
+	</div>
+	Estimate <b><%= task.estimate.blank? ? "?" : in_hours(task.estimate) %></b>,
+	Actual <b><%= task.actual.blank? ? "?" : in_hours(task.actual) %></b>
+
+	<br/><br/>
+	<%= link_to 'Edit', edit_task_path(task), :class => 'btn primary' %>
+</section>
